@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nettilation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #0a0a0a;
+            color: #f0f0f0;
+        }
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #00aaff;
+            text-shadow: 0 0 10px #00aaff;
+            font-weight: bold;
+            animation: fadeIn 2s ease-in-out; /* Fade-in animation */
+        }
+        .question {
+            font-size: 1.7rem;
+            margin-bottom: 0.5rem;
+            color: #ddd;
+            animation: fadeIn 2s ease-in-out; /* Fade-in animation */
+        }
+        .proverb {
+          font-size: 1.2rem;
+          margin-bottom: 1.5rem;
+          color: #aaa;
+          font-style: italic;
+          animation: fadeIn 2s ease-in-out;
+        }
+        .buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+        button {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border: 2px solid #00aaff;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: transparent;
+            color: #00aaff;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+            font-weight: normal;
+            box-shadow: 0 0 5px #00aaff;
+
+        }
+        button:hover {
+            background-color: #00aaff;
+            color: #0a0a0a;
+            box-shadow: 0 0 15px #00aaff;
+        }
+
+        #response {
+            font-size: 1.4rem;
+            font-weight: normal;
+            color: #fff;
+            border: 2px solid #00aaff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: rgba(0, 170, 255, 0.1);
+            box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+            max-width: 70%;
+            text-align: center;
+            animation: pulse 2s infinite;
+            display: none; /* Initially hidden */
+        }
+
+        /* Keyframes for animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1><strong>Nettilation</strong></h1>
+    <p class="question">Have you methylated today?</p>
+    <p class="proverb" id="proverb"></p>
+    <div class="buttons">
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
+    </div>
+    <div id="response"></div>
+
+    <script>
+        const responseDiv = document.getElementById('response');
+        const proverbDiv = document.getElementById('proverb');
+
+        const proverbs = [
+            "Better methylate today than tomorrow.",
+            "He who doesn't methylate, doesn't take care.",
+            "The one who methylates, lives peacefully.",
+            "One folate pill a day keeps the mind in harmony.",
+            "Don’t leave for tomorrow what you can methylate today.",
+            "Folate is never forgotten, it’s taken with joy."
+        ];
+
+        const yesMessages = [
+            "Great! Folate is working its magic.",
+            "You’re taking care of yourself like a pro.",
+            "Well done! Your body will thank you.",
+            "With that folate dose, you’re at 100%.",
+            "Congratulations, your health is on track!"
+        ];
+
+        const noMessages = [
+            "Remember, folate should never be forgotten.",
+            "Today is a great day to start.",
+            "Don't forget your daily folate dose!",
+            "Your body will soon ask for that pill.",
+            "Don’t let folate slip away, take it now!"
+        ];
+
+        function getRandomMessage(messages) {
+          return messages[Math.floor(Math.random() * messages.length)];
+        }
+
+        function showResponse(messages) {
+          responseDiv.textContent = getRandomMessage(messages);
+          responseDiv.style.animation = 'none'; //reset
+          void responseDiv.offsetWidth; // trigger reflow
+          responseDiv.style.animation = 'pulse 2s infinite'; //start again
+          responseDiv.style.display = 'block'; // Show the response div
+        }
+
+        document.getElementById('yes').addEventListener('click', () => {
+            showResponse(yesMessages);
+        });
+
+        document.getElementById('no').addEventListener('click', () => {
+            showResponse(noMessages);
+        });
+
+        // Show a random proverb on page load
+        proverbDiv.textContent = getRandomMessage(proverbs);
+    </script>
+</body>
+</html>
